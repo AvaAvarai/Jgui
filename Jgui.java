@@ -39,6 +39,13 @@ public class Jgui implements Runnable {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+            g.setColor(Color.LIGHT_GRAY);
+            for (int i = 0; i < getWidth(); i+=20) {
+                g.drawLine(i, 0, i, getHeight());
+            }
+            for (int i = 0; i < getHeight(); i+=20) {
+                g.drawLine(0, i, getWidth(), i);
+            }
         }
     }
 }
