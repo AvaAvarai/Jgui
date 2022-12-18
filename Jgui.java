@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.lang.Runnable;
@@ -18,7 +19,7 @@ public class Jgui implements Runnable {
 
     @Override
     public void run() {
-        JGuiFrame frame = new JGuiFrame();
+        new JGuiFrame();
     }
 
     public class JGuiFrame extends JFrame {
@@ -37,10 +38,12 @@ public class Jgui implements Runnable {
     public class JGuiPanel extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener {
 
         int zoom;
+        Point pos;
 
         public JGuiPanel() {
             super();
             zoom = 20;
+            pos = new Point(0, 0);
             setPreferredSize(new Dimension(640, 480));
             setBackground(Color.DARK_GRAY);
             addMouseWheelListener(this);
@@ -71,13 +74,13 @@ public class Jgui implements Runnable {
 
         @Override
         public void mouseMoved(MouseEvent e) {
-            System.out.println(e.getPoint().toString()); 
-
+            pos = e.getPoint();
+            repaint();
         }
 
         @Override
 	    public void mouseWheelMoved(MouseWheelEvent e) {
-		    int dir = e.getWheelRotation();
+            int dir = e.getWheelRotation();
             if (dir > 0 && zoom < 200) {
                zoom+=5;
             } else if (zoom > 5) {
@@ -96,6 +99,9 @@ public class Jgui implements Runnable {
             for (int i = 0; i < getHeight(); i+=zoom) {
                 g.drawLine(0, i, getWidth(), i);
             }
+            g.setColor(Color.WHITE);
+            g.drawString("mousePos: (" + pos.getX() + ", " + pos.getY() + ")", 5, 15);
+
         }
    }
 }
