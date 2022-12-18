@@ -7,9 +7,14 @@ JC = javac
 CLASSES = \
 		Jgui.java
 
+ENTRY = Jgui
+
 default: $(CLASSES:.java=.class)
 
-.PHONY: clean
+.PHONY: clean run
 
 clean:
 	$(RM) *.class
+
+run:
+	java $(ENTRY)
