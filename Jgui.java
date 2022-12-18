@@ -2,8 +2,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.lang.Runnable;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -23,15 +26,16 @@ public class Jgui implements Runnable {
             super("TITLE HERE");
             setPreferredSize(new Dimension(640, 480));
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            add(new JGuiPanel());
+            JGuiPanel panel = new JGuiPanel();
+            add(panel);
             pack();
             setLocationByPlatform(true);
             setVisible(true);
         }
     }
 
-    public class JGuiPanel extends JPanel implements MouseWheelListener {
-        
+    public class JGuiPanel extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener {
+
         int zoom;
 
         public JGuiPanel() {
@@ -40,19 +44,47 @@ public class Jgui implements Runnable {
             setPreferredSize(new Dimension(640, 480));
             setBackground(Color.DARK_GRAY);
             addMouseWheelListener(this);
+            addMouseListener(this);
+            addMouseMotionListener(this);
             setVisible(true);
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+
+        @Override
+        public void mouseExited(MouseEvent e) {}
+
+        @Override
+        public void mousePressed(MouseEvent e) {}
+
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseDragged(MouseEvent e) {}
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            System.out.println(e.getPoint().toString()); 
+
         }
 
         @Override
 	    public void mouseWheelMoved(MouseWheelEvent e) {
 		    int dir = e.getWheelRotation();
             if (dir > 0 && zoom < 200) {
-               zoom+=5; 
+               zoom+=5;
             } else if (zoom > 5) {
                zoom-=5;
             }
             repaint();
-	    }
+        }
 
         @Override
         public void paintComponent(Graphics g) {
@@ -65,6 +97,6 @@ public class Jgui implements Runnable {
                 g.drawLine(0, i, getWidth(), i);
             }
         }
-    }
+   }
 }
 
