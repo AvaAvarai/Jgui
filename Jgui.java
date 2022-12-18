@@ -2,12 +2,17 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.Dimension;
 import java.awt.Graphics;
+
 import java.lang.Runnable;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -35,7 +40,7 @@ public class Jgui implements Runnable {
         }
     }
 
-    public class JGuiPanel extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener {
+    public class JGuiPanel extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener, KeyListener {
 
         int zoom;
         Point pos;
@@ -51,6 +56,26 @@ public class Jgui implements Runnable {
             addMouseMotionListener(this);
             setVisible(true);
         }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_LEFT:
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    break;
+                case KeyEvent.VK_UP:
+                    break;
+                case KeyEvent.VK_DOWN:
+                    break;
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {}
+
+        @Override
+        public void keyTyped(KeyEvent e) {}
 
         @Override
         public void mouseClicked(MouseEvent e) {
